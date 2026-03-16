@@ -2,14 +2,14 @@ import express from "express";
 import Artist from "../models/Artist";
 import {Error} from "mongoose";
 import {imagesUpload} from "../multer";
-import {ArtistMutation} from "../types";
+import {ArtistMutation, IArtist} from "../types";
 
 
 const artistRouter = express.Router();
 
 artistRouter.get('/', async (_req, res, next) => {
     try {
-        const artist = await Artist.find()
+        const artist: IArtist[] = await Artist.find()
         res.send(artist);
     } catch (e) {
         next(e)
@@ -18,7 +18,7 @@ artistRouter.get('/', async (_req, res, next) => {
 
 artistRouter.post('/',imagesUpload.single('image'), async (req, res, next) => {
     try{
-        const newArtist = {
+        const newArtist: ArtistMutation = {
             name: req.body.name,
             image: req.file ? 'images/' + req.file.filename : null,
             information: req.body.information
