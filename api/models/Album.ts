@@ -1,26 +1,20 @@
-import mongoose, {Schema, Types} from "mongoose";
-import Artist from "./Artist";
+import mongoose from "mongoose";
 
 const AlbumSchema = new mongoose.Schema({
     artist: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Artist',
         required: true,
-        validate: {
-            validator: async (artistId: Types.ObjectId) => {
-                const artist = await  Artist.findById(artistId);
-                if(!artist) return false;
-
-                return true;
-            },
-            message: 'Artist does not exist',
-        }
     },
-    yearOfPublication: {
+    title: {
+        type: String,
+        required: true,
+    },
+    year: {
         type: String,
         required: true
     },
-    albumImage: {
+    image: {
         type: String,
         default: null
     }

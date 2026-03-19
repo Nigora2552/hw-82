@@ -5,8 +5,8 @@ export interface IArtist{
     information: string;
 }
 export interface AlbumMutation{
-    name: string;
+    title: string;
     artist: IArtist;
-    yearOfPublication: string;
-    albumImage: string | null;
+    year: string;
+    image: string | null;
 }

@@ -1,30 +1,48 @@
 import express from "express";
 import Track from "../models/Track";
 import {Error} from "mongoose";
+import Album from "../models/Album";
 
 
 const trackRouter = express.Router();
 
 
-trackRouter.get('/:id', async (req, res) => {
-    const query: { album?: string } = {};
+trackRouter.get('/', async (req, res,next) => {
+   try{
+       const query: { album?: string } = {};
+       if (req.query.album) query.album = String(req.query.album);
+       if(req.query.artist) {
+           const artistTrack = await Track.find().populate({
+               path: 'album',
+               match:{
+                   'artist': req.query.qrtist,
+               },
+               populate:{
+                   path: 'artist',
+               }
+           });
+           let track = artistTrack.filter(track => track.album !== null)
+           return res.send(track)
+       }
 
-    if (req.query.album) {
-        query.album = req.query.album as string;
-    }
-
-    const track = await Track.find(query).populate("album_id");
-    return res.send(track);
+       const tracks = await Track.find(query).populate("album");
+       return res.send(tracks);
+   } catch(e){
+       next(e)
+   }
 });
 
 trackRouter.post('/', async (req, res, next) => {
-    const newTrack = new Track({
-        album_id: req.body.album_id,
-        name: req.body.name,
-        duration: req.body.duration || null,
-    })
 
     try {
+        const findAlbum = await Album.findById(req.body.album)
+        if(!findAlbum) return res.status(404).send('Album not found');
+
+        const newTrack = new Track({
+            album: req.body.album,
+            title: req.body.title,
+            duration: req.body.duration || null,
+        })
             await newTrack.save();
             return res.send(newTrack);
 

@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
-
-const ArtistSchema = new Schema({
+const ArtistSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Имя обязательное поле"]

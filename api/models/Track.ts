@@ -1,23 +1,13 @@
-import mongoose, {Types} from "mongoose";
-import Album from "./Album";
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
 
-const TrackSchema = new Schema({
-    album_id: {
-        type: Schema.Types.ObjectId,
+const TrackSchema = new mongoose.Schema({
+    album: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Album',
         required: true,
-        validate: {
-            validator: async (albumId: Types.ObjectId) => {
-                const album = await  Album.findById(albumId);
-                if(!album) return false;
-                return true;
-            },
-            message: 'Album does not exist',
-        }
     },
-    name: {
+    title: {
         type: String,
         required: true
     },
