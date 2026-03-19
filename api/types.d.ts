@@ -10,3 +10,9 @@ export interface AlbumMutation{
     year: string;
     image: string | null;
 }
+
+export interface UserFields{
+    username: string;
+    password: string;
+    token: string;
+}

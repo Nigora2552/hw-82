@@ -3,6 +3,7 @@ import  mongoose from "mongoose";
 import artistRouter from "./routes/artists";
 import albumRouter from "./routes/albums";
 import trackRouter from "./routes/tracks";
+import usersRouter from "./routes/users";
 
 const app = express();
 const port = 8000;
@@ -10,6 +11,7 @@ const port = 8000;
 app.use(express.json());
 app.use(express.static('public'));
 
+app.use('/users', usersRouter);
 app.use('/artist', artistRouter);
 app.use('/albums', albumRouter);
 app.use('/tracks', trackRouter);
