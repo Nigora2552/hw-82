@@ -31,10 +31,6 @@ trackHistoryRouter.post('/', async (req, res, next) => {
       const findUser = await User.findOne({token})
       if (!findUser) return res.status(401).send('Unauthorized user')
 
-      const findTrack = await Track.findById(req.body.track_id)
-      if (!findTrack) return res.status(404).send('Track not found')
-
-
       const newTrackHistory = new TrackHistory({
           user_id: findUser,
           track_id: req.body.track_id
