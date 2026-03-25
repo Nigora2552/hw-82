@@ -1,6 +1,11 @@
 import './App.css'
 import NavBar from "./components/NavBar/NavBar.tsx";
-import { Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
+import Home from "./containers/Home/Home.tsx";
+
+function Albums() {
+    return null;
+}
 
 const App = () => {
 
@@ -8,7 +13,8 @@ const App = () => {
         <>
             <NavBar/>
             <Routes>
-                {/*<Route path='/' element={(<Home/>)}/>*/}
+                <Route path='/' element={(<Home/>)}/>
+                <Route path='/albums' element={(<Albums/>)}/>
             </Routes>
         </>
     )

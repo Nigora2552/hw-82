@@ -1,3 +1,0 @@
-// interface UsersState {
-//     user:
-// }
