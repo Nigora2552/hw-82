@@ -9,6 +9,8 @@ interface Props {
 }
 
 const AlbumCard: React.FC<Props> = ({title,image,year}) => {
+
+
     let cardImage = noPhoto;
 
     if(image){
@@ -17,12 +19,14 @@ const AlbumCard: React.FC<Props> = ({title,image,year}) => {
 
 
     return (
-        <div style={{width: '300px', border: "1px solid black", padding: '10px'}}>
+    <>
+        <div style={{width: '200px', border: "1px solid black", padding: '10px'}}>
             <img style={{width: '100%'}} src={cardImage} alt={title} />
             <p>{title}</p>
             <span>{year}</span>
 
         </div>
+    </>
     );
 };
 

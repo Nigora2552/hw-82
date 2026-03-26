@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 import {getAllAlbums} from "../../features/albums/albumsThunk.ts";
 import {useAppDispatch} from "../../app/hooks.ts";
 
+
 interface Props {
     name: string;
     image: string | null;
@@ -16,14 +17,17 @@ const ArtistCard:React.FC<Props> = ({name,image, _id}) => {
     const dispatch = useAppDispatch();
 
 
+
+    const albQuery = (id: string) => {
+        dispatch(getAllAlbums(id))
+    }
+
+
+
     let cardImage = noPhoto;
 
     if(image){
         cardImage = apiUrl + '/' + image;
-    }
-
-    const albQuery = (id: string) => {
-        dispatch(getAllAlbums(id))
     }
 
 
