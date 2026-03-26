@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import {getArtists} from "../../features/artists/artistsThunks.ts";
 import {selectArtist, selectLoading} from "../../features/artists/artistsSelectors.ts";
 import {CircularProgress} from "@mui/material";
-import ArtistCard from "../../components/artistCard.tsx";
+import ArtistCard from "../../components/artistCard/artistCard.tsx";
 
 
 const Home = () => {

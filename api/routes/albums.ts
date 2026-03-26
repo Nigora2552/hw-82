@@ -16,7 +16,7 @@ albumRouter.get('/', async (req, res, next) => {
             query.artist = req.query.artist as string;
         }
 
-        const albums = await Album.find(query);
+        const albums = await Album.find(query).sort({year: -1});
         return res.send(albums)
     } catch (e) {
         next(e)
