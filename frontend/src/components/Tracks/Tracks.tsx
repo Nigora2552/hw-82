@@ -20,10 +20,6 @@ const Tracks = () => {
         }
     }, [dispatch, album]);
 
-    useEffect(() => {
-        console.log('track', tracks)
-    }, [tracks]);
-
     return (
         <div style={{ display: 'flex', alignItems: 'center',}}>
             {loading && <CircularProgress/>}
