@@ -38,11 +38,14 @@ trackRouter.post('/', async (req, res, next) => {
         const findAlbum = await Album.findById(req.body.album)
         if(!findAlbum) return res.status(404).send('Album not found');
 
+        const tracks = await Track.find();
+        const indexTrack = tracks.length + 1;
+
         const newTrack = new Track({
             album: req.body.album,
             title: req.body.title,
             duration: req.body.duration || null,
-            trackNumber: req.body.trackNumber,
+            trackNumber: indexTrack,
         })
             await newTrack.save();
             return res.send(newTrack);

@@ -17,7 +17,8 @@ const TrackSchema = new mongoose.Schema({
     },
     trackNumber:{
         type: Number,
-        required: true
+        index: true,
+        min: 1
     }
 });
 

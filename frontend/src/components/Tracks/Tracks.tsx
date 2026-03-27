@@ -13,7 +13,6 @@ const Tracks = () => {
     const loading = useAppSelector(selectLoading);
 
     const album = searchParams.get('album');
-    console.log(album)
 
     useEffect(() => {
         if (album) {
