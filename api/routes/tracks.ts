@@ -42,6 +42,7 @@ trackRouter.post('/', async (req, res, next) => {
             album: req.body.album,
             title: req.body.title,
             duration: req.body.duration || null,
+            trackNumber: req.body.trackNumber,
         })
             await newTrack.save();
             return res.send(newTrack);

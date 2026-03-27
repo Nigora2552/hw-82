@@ -4,6 +4,7 @@ export interface IArtist {
     image: string | null;
     information: string;
 }
+
 export interface ArtistMutation {
     name: string;
     image: File | null;
@@ -16,4 +17,12 @@ export interface IAlbums {
     title: string;
     year: number;
     image: string | null;
+}
+
+export interface ITracks {
+    album: IAlbums;
+    _id: string;
+    title: string;
+    duration: string;
+    trackNumber: number;
 }

@@ -16,14 +16,6 @@ interface Props {
 const ArtistCard:React.FC<Props> = ({name,image, _id}) => {
     const dispatch = useAppDispatch();
 
-
-
-    const albQuery = (id: string) => {
-        dispatch(getAllAlbums(id))
-    }
-
-
-
     let cardImage = noPhoto;
 
     if(image){
@@ -32,7 +24,7 @@ const ArtistCard:React.FC<Props> = ({name,image, _id}) => {
 
 
     return (
-        <Paper onClick={() => albQuery(_id)} component={NavLink} to={`/albums?artist=${_id}`} sx={{width: '250px', padding: '10px',margin: '10px', textAlign: 'center'}}>
+        <Paper onClick={() =>  dispatch(getAllAlbums(_id))} component={NavLink} to={`/albums?artist=${_id}`} sx={{width: '250px', padding: '10px',margin: '10px', textAlign: 'center'}}>
             <img style={{width: '100%'}} src={cardImage} alt={name} />
             <p>{name}</p>
         </Paper>
