@@ -37,11 +37,23 @@ const run = async () => {
             image: 'fixtures/annaAlbum.jpeg'
         },
         {
+            artist: annaAlbum!._id,
+            title: 'Феникс',
+            year: 2022,
+            image: 'fixtures/annaAlbum.jpeg'
+        },
+        {
             artist: muratAlbum!._id,
             title: 'Кто то простит',
-            year: 2023,
+            year: 1997,
             image: 'fixtures/MuratAlbum.jpeg'
-        }
+        },
+        {
+            artist: muratAlbum!._id,
+            title: 'Разбуди меня',
+            year: 2002,
+            image: 'fixtures/MuratAlbum.jpeg'
+        },
     );
 
     await Track.create(
