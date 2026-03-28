@@ -1,7 +1,7 @@
 import express from "express";
 import Album from "../models/Album";
 import {Error} from "mongoose";
-import {imagesUpload} from "../multer";
+import {imagesUpload} from "../middleware/multer";
 import Artist from "../models/Artist";
 
 
