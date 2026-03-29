@@ -20,10 +20,18 @@ const UserSchema = new mongoose.Schema<HydratedDocument<UserFields>,
         type: String,
         required: true,
         unique: true,
+        validate: {
+            validator: async (value: string) => {
+                const user = await User.findOne({username: value})
+                if (user) return false;
+                return true;
+            },
+            message: 'User name is already taken',
+        }
     },
     password: {
         type: String,
-        required: true,
+        required: [true, "Password is required"],
     },
     token: {
         type: String,
@@ -35,7 +43,7 @@ UserSchema.methods.checkPassword = function (password: string) {
     return bcrypt.compare(password, this.password);
 };
 
-UserSchema.methods.generateAuthToken = function (){
+UserSchema.methods.generateAuthToken = function () {
     this.token = randomUUID();
 };
 
