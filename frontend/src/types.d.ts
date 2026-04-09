@@ -75,7 +75,7 @@ export interface TrackMutation {
     album: string | IAlbums;
     title: string;
     duration: string;
-    trackNumber: number;
+    trackNumber: string;
     isPublished: boolean;
 }
 

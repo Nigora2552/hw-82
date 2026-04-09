@@ -1,6 +1,6 @@
 import type {ITracks} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
-import {getAllTracks} from "./tracksThunk.ts";
+import {createTrack, deleteTrack, getAllTracks} from "./tracksThunk.ts";
 
 interface TrackState {
     tracks: ITracks[],
@@ -26,7 +26,27 @@ export const trackSlice = createSlice({
         });
         builder.addCase(getAllTracks.rejected, (state) =>  {
             state.loading = false;
-        })
+        });
+
+        builder.addCase(createTrack.pending, (state) =>  {
+            state.loading = true;
+        }) ;
+        builder.addCase(createTrack.fulfilled, (state) =>  {
+            state.loading = false;
+        });
+        builder.addCase(createTrack.rejected, (state) =>  {
+            state.loading = false;
+        });
+
+        builder.addCase(deleteTrack.pending, (state) =>  {
+            state.loading = true;
+        }) ;
+        builder.addCase(deleteTrack.fulfilled, (state) =>  {
+            state.loading = false;
+        });
+        builder.addCase(deleteTrack.rejected, (state) =>  {
+            state.loading = false;
+        });
     }
 });
 
