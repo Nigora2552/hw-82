@@ -1,11 +1,11 @@
 import React from 'react';
-import {apiUrl} from "../../constants.ts";
-import noPhoto from "../../assets/noPhoto.jpeg";
+import {apiUrl} from "../../../../constants.ts";
+import noPhoto from "../../../../assets/noPhoto.jpeg";
 import {Box, IconButton} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {useAppDispatch} from "../../app/hooks.ts";
-import {getAllTracks} from "../../features/tracks/tracksThunk.ts";
-import {deleteArtist} from "../../features/artists/artistsThunks.ts";
+import {useAppDispatch} from "../../../../app/hooks.ts";
+import {getAllTracks} from "../../../tracks/tracksThunk.ts";
+import {deleteArtist} from "../../../artists/artistsThunks.ts";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 

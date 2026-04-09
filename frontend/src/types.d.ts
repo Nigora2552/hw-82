@@ -55,10 +55,10 @@ export interface IAlbums {
     isPublished: boolean;
 }
 export interface AlbumMutation {
-    artist: IArtist;
+    artist: string | IArtist;
     title: string;
-    year: number;
-    image: string | null;
+    year: string;
+    image: File | null;
     isPublished: boolean;
 }
 
@@ -68,6 +68,15 @@ export interface ITracks {
     title: string;
     duration: string;
     trackNumber: number;
+    isPublished: boolean;
+}
+
+export interface TrackMutation {
+    album: string | IAlbums;
+    title: string;
+    duration: string;
+    trackNumber: number;
+    isPublished: boolean;
 }
 
 export interface ITrackHistory {

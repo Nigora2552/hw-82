@@ -23,7 +23,11 @@ export const createAlbum = createAsyncThunk<IAlbums, AlbumMutation>(
             const value = AlbumMutation[key];
 
             if (value !== null) {
-                formData.append(key, String(value));
+                if(key === 'year'){
+                    formData.append(key, Number(value).toString());
+                }else{
+                    formData.append(key, String(value));
+                }
             }
         })
 

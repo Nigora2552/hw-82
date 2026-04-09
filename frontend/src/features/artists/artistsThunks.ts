@@ -9,7 +9,7 @@ export const getArtists = createAsyncThunk<IArtist[], void>('artist/getArtists',
         const response = await axiosApi.get<IArtist[]>('/artists');
         return response.data || [];
     })
-export const createArtist = createAsyncThunk<IArtist, ArtistMutation>('artist/createArtist',
+export const createArtist = createAsyncThunk<void, ArtistMutation>('artist/createArtist',
     async (ArtistMutation) => {
         const formData = new FormData();
 
@@ -22,8 +22,8 @@ export const createArtist = createAsyncThunk<IArtist, ArtistMutation>('artist/cr
             }
         })
 
-        const response = await axiosApi.post('/artist', formData)
-        return response.data || null;
+        await axiosApi.post('/artists', formData)
+
     });
 
 export const deleteArtist = createAsyncThunk<void, string, { dispatch: AppDispatch }>(

@@ -1,8 +1,8 @@
 import {Button, Menu, MenuItem} from "@mui/material";
-import type {User} from "../../types";
+import type {User} from "../../../types";
 import {useState} from "react";
-import {useAppDispatch} from "../../app/hooks.ts";
-import {logout} from "../../features/users/usersThunks.ts";
+import {useAppDispatch} from "../../../app/hooks.ts";
+import {logout} from "../../../features/users/usersThunks.ts";
 
 interface Props {
     user: User;

@@ -1,10 +1,10 @@
-import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
-import {selectAlbums, selectLoading} from "../../features/albums/albumSelectors.ts";
+import {useAppDispatch, useAppSelector} from "../../../../app/hooks.ts";
+import {selectAlbums, selectLoading} from "../../albumSelectors.ts";
 import AlbumCard from "./AlbumCard.tsx";
-import {CircularProgress} from "@mui/material";
-import {useSearchParams} from "react-router-dom";
+import {Button, CircularProgress} from "@mui/material";
+import {NavLink, useSearchParams} from "react-router-dom";
 import {useEffect} from "react";
-import {getAllAlbums} from "../../features/albums/albumsThunk.ts";
+import {getAllAlbums} from "../../albumsThunk.ts";
 
 
 const Albums = () => {
@@ -23,6 +23,7 @@ const Albums = () => {
 
     return (
      <>
+         <Button component={NavLink} to='/add_album/new'>Add Album</Button>
          {loading && <CircularProgress/>}
          {!loading && albums.length === 0 ? <p>No albums</p>
          : <div style={{display: 'flex',flexWrap:'wrap', gap: '10px', marginTop: '20px'}}>

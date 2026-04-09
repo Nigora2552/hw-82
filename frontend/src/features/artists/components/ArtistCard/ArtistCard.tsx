@@ -1,11 +1,11 @@
 import React from 'react';
 import {Box, IconButton, Paper} from "@mui/material";
-import noPhoto from '../../assets/noPhoto.jpeg'
-import {apiUrl} from "../../constants.ts";
+import noPhoto from '../../../../assets/noPhoto.jpeg'
+import {apiUrl} from "../../../../constants.ts";
 import {NavLink} from "react-router-dom";
-import {getAllAlbums} from "../../features/albums/albumsThunk.ts";
-import {useAppDispatch} from "../../app/hooks.ts";
-import {deleteArtist} from "../../features/artists/artistsThunks.ts";
+import {getAllAlbums} from "../../../albums/albumsThunk.ts";
+import {useAppDispatch} from "../../../../app/hooks.ts";
+import {deleteArtist} from "../../artistsThunks.ts";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 
@@ -27,9 +27,9 @@ const ArtistCard: React.FC<Props> = ({name, image, _id}) => {
 
     return (
         <Paper onClick={() => dispatch(getAllAlbums(_id))} component={NavLink} to={`/albums?artist=${_id}`}
-               sx={{width: '250px', padding: '10px', margin: '10px', textAlign: 'center'}}>
+               sx={{minHeight: '418px',width: '250px', padding: '10px', margin: '10px', textAlign: 'center'}}>
             <img style={{width: '100%'}} src={cardImage} alt={name}/>
-            <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', marginTop: 'auto', justifyContent: 'space-between', alignItems: 'center'}}>
                 <p>{name}</p>
                 <IconButton onClick={(e) => {
                     e.stopPropagation();
