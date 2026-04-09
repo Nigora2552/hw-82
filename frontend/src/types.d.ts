@@ -1,4 +1,4 @@
-export interface User{
+export interface User {
     _id: string;
     username: string;
     token: string;
@@ -16,7 +16,16 @@ export interface ValidationError {
     _message: string
 }
 
-export interface RegisterMutation{
+export interface GlobalError {
+    error: string;
+}
+
+export interface RegisterMutation {
+    username: string;
+    password: string;
+}
+
+export interface LoginMutation {
     username: string;
     password: string;
 }
@@ -49,4 +58,9 @@ export interface ITracks {
     title: string;
     duration: string;
     trackNumber: number;
+}
+
+export interface ITrackHistory {
+    token: string
+    track: ITracks,
 }

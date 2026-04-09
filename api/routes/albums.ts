@@ -3,6 +3,9 @@ import Album from "../models/Album";
 import {Error} from "mongoose";
 import {imagesUpload} from "../middleware/multer";
 import Artist from "../models/Artist";
+import auth from "../middleware/auth";
+import permit from "../middleware/permit";
+import artistRouter from "./artists";
 
 
 const albumRouter = express.Router();
@@ -39,7 +42,7 @@ albumRouter.get('/:id', async (req, res, next) => {
 
 })
 
-albumRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
+albumRouter.post('/',auth,  imagesUpload.single('image'), async (req, res, next) => {
     const fineArtist = await Artist.findById(req.body.artist);
     if (!fineArtist) return res.status(404).send('Artist not found')
 
@@ -60,5 +63,15 @@ albumRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
         next(error);
     }
 });
+
+albumRouter.delete('/:id',permit('admin'), async( req, res, next) => {
+    const {id} = req.params;
+    try{
+        await Album.findByIdAndDelete(id);
+        res.send({message: 'Artist deleted successfully!'})
+    } catch (e) {
+        next(e)
+    }
+})
 
 export default albumRouter;

@@ -1,6 +1,6 @@
 import type {IArtist} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
-import {createArtist, getArtists} from "./artistsThunks.ts";
+import {createArtist, deleteArtist, getArtists} from "./artistsThunks.ts";
 
 interface ArtistsState {
     artists: IArtist[];
@@ -37,6 +37,17 @@ export const artistsSlice = createSlice({
             state.loading = false;
         });
         builder.addCase(createArtist.rejected, (state) => {
+            state.loading = false;
+        });
+
+        builder.addCase(deleteArtist.pending, (state) => {
+            state.loading = true
+        });
+
+        builder.addCase(deleteArtist.fulfilled, (state) => {
+            state.loading = false;
+        });
+        builder.addCase(deleteArtist.rejected, (state) => {
             state.loading = false;
         });
     },

@@ -19,105 +19,156 @@ const run = async () => {
         console.log('Collections were not present, skipping drop')
     }
 
-    await User.create(
+    const admin = new User(
         {
-            username: 'Alisa',
+            username: 'admin',
             password: '123',
-            token: randomUUID()
-        },
-        {
-            username: 'Jone',
-            password: '123',
-            token: randomUUID()
-        },
-    )
+            role: 'admin',
+            token: '',
+        });
 
-    const [muratAlbum, annaAlbum] = await Artist.create(
+    admin.generateAuthToken();
+    await admin.save();
+
+    const alisa = new User(
+        {
+            username: 'alisa',
+            password: '123',
+            role: 'user',
+            token: '',
+        });
+
+    alisa.generateAuthToken();
+    await alisa.save();
+
+    const murat = await Artist.create(
         {
             name: 'Murat Nasyrov',
             image: 'fixtures/muratNasyrov.jpeg',
             information: ' Murat Nasyrov text',
-        },
-        {
-            name: 'Anna Asti',
-            image: 'fixtures/annaAsti.jpeg',
-            information: ' Anna Asti text',
+            isPublished: true,
         }
     );
 
-    const [annaArtist, muratArtist] = await Album.create(
+
+    const anna = await Artist.create({
+        name: 'Anna Asti',
+        image: 'fixtures/annaAsti.jpeg',
+        information: ' Anna Asti text',
+        isPublished: true,
+    });
+
+
+
+    await Album.create(
         {
-            artist: annaAlbum!._id,
+            artist: anna._id,
             title: 'Царица',
             year: 2023,
-            image: 'fixtures/annaAlbum.jpeg'
+            image: 'fixtures/annaAlbum.jpeg',
+            isPublished: true,
         },
         {
-            artist: annaAlbum!._id,
+            artist: anna!._id,
             title: 'Феникс',
             year: 2022,
-            image: 'fixtures/annaAlbum.jpeg'
+            image: 'fixtures/annaAlbum.jpeg',
+            isPublished: true,
         },
         {
-            artist: muratAlbum!._id,
+            artist: murat!._id,
             title: 'Кто то простит',
             year: 1997,
-            image: 'fixtures/MuratAlbum.jpeg'
+            image: 'fixtures/MuratAlbum.jpeg',
+            isPublished: true,
+
         },
         {
-            artist: muratAlbum!._id,
+            artist: murat!._id,
             title: 'Разбуди меня',
             year: 2002,
-            image: 'fixtures/MuratAlbum.jpeg'
+            image: 'fixtures/MuratAlbum.jpeg',
+            isPublished: true,
+
         },
     );
 
     await Track.create(
         {
-            album: annaArtist!._id,
+            album: anna!._id,
             title: 'Anna track 1',
             duration: "2:36",
-        } ,
-        {
-            album: annaArtist!._id,
-            title: 'Anna track 2',
-            duration: "2:00",
-        } ,
-        {
-            album: annaArtist!._id,
-            title: 'Anna track 2',
-            duration: "3:01",
-        } ,
-        {
-            album: annaArtist!._id,
-            title: 'Anna track 4',
-            duration: "3:27",
-        } ,
-        {
-            album: annaArtist!._id,
-            title: 'Anna track 5',
-            duration: "1:50",
+            trackNumber: 1,
+            isPublished: true,
+
         },
         {
-            album: muratArtist!._id,
+            album: anna!._id,
+            title: 'Anna track 2',
+            duration: "2:00",
+            trackNumber: 2,
+            isPublished: false,
+
+        },
+        {
+            album: anna!._id,
+            title: 'Anna track 3',
+            duration: "3:01",
+            trackNumber: 3,
+            isPublished: true,
+
+        },
+        {
+            album: anna!._id,
+            title: 'Anna track 4',
+            duration: "3:27",
+            trackNumber: 4,
+            isPublished: true,
+
+        },
+        {
+            album: anna!._id,
+            title: 'Anna track 5',
+            duration: "1:50",
+            trackNumber: 5,
+            isPublished: true,
+
+        },
+        {
+            album: murat!._id,
             title: 'Murat track 1',
             duration: "2:00",
+            trackNumber: 1,
+            isPublished: true,
+
         }, {
-            album: muratArtist!._id,
+            album: murat!._id,
             title: 'Murat track 2',
             duration: "2:05",
+            trackNumber: 2,
+            isPublished: true,
+
         }, {
-            album: muratArtist!._id,
+            album: murat!._id,
             title: 'Murat track 3',
             duration: "2:45",
+            trackNumber: 3,
+            isPublished: true,
+
         }, {
-            album: muratArtist!._id,
+            album: murat!._id,
             title: 'Murat track 4',
             duration: "1:53",
+            trackNumber: 4,
+            isPublished: true,
+
         }, {
-            album: muratArtist!._id,
+            album: murat!._id,
             title: 'Murat track 5',
             duration: "2:03",
+            trackNumber: 5,
+            isPublished: true,
+
         },
     )
 

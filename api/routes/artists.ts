@@ -1,8 +1,10 @@
 import express from "express";
 import Artist from "../models/Artist";
-import {Error} from "mongoose";
+import mongoose, {Error} from "mongoose";
 import {imagesUpload} from "../middleware/multer";
-import { IArtist} from "../types";
+import {IArtist} from "../types";
+import auth from "../middleware/auth";
+import permit from "../middleware/permit";
 
 
 const artistRouter = express.Router();
@@ -16,14 +18,14 @@ artistRouter.get('/', async (_req, res, next) => {
     }
 });
 
-artistRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
-    const newArtist = new Artist ({
-        name: req.body.name,
-        image: req.file ? 'images/' + req.file.filename : null,
-        information: req.body.information || null,
-    });
-
+artistRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
     try {
+
+        const newArtist = new Artist({
+            name: req.body.name,
+            image: req.file ? 'images/' + req.file.filename : null,
+            information: req.body.information || null,
+        });
 
         await newArtist.save();
         return res.send(newArtist);
@@ -36,5 +38,19 @@ artistRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
         next(error)
     }
 });
+
+artistRouter.delete('/:id', auth, permit('admin'),async( req, res, next) => {
+    const id = req.params.id;
+    const isValid  = mongoose.Types.ObjectId.isValid(id as string);
+    if(!id || !isValid) return res.status(400).send({error: 'Id must be provided in request params'})
+
+    try{
+        await Artist.findByIdAndDelete(id);
+        res.send({message: 'Artist deleted successfully!'})
+    } catch (e) {
+        next(e)
+    }
+})
+
 
 export default artistRouter;

@@ -3,20 +3,28 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {NavLink} from "react-router-dom";
-import Button from '@mui/material/Button';
+import {useAppSelector} from "../../app/hooks.ts";
+import {selectUser} from "../../features/users/usersSelectore.ts";
+import UserMenu from "./UserMenu.tsx";
+import AnonymousMenu from "./AnonymousMenu.tsx";
 
 const NavBar = () => {
+    const user = useAppSelector(selectUser);
+
+
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{mb:2}}>
+        <Box sx={{flexGrow: 1}}>
+            <AppBar position="static" sx={{mb: 2}}>
                 <Toolbar>
                     <Grid container justifyContent='space-between' alignItems='center' sx={{width: '100%'}}>
-                        <Typography component={NavLink} to='/' sx={{ flexGrow: 1, textDecoration: 'none', color: 'white' }}>
+                        <Typography component={NavLink} to='/'
+                                    sx={{flexGrow: 1, textDecoration: 'none', color: 'white'}}>
                             News
                         </Typography>
-                        <Button component={NavLink} to='/register' color="inherit">Sing Up</Button>
+                        <Grid>
+                            {user ? <UserMenu user={user}/> : <AnonymousMenu/>}
+                        </Grid>
                     </Grid>
-
                 </Toolbar>
             </AppBar>
         </Box>

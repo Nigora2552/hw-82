@@ -2,6 +2,7 @@ import express from "express";
 import Track from "../models/Track";
 import {Error} from "mongoose";
 import Album from "../models/Album";
+import auth from "../middleware/auth";
 
 
 const trackRouter = express.Router();
@@ -32,7 +33,7 @@ trackRouter.get('/', async (req, res,next) => {
    }
 });
 
-trackRouter.post('/', async (req, res, next) => {
+trackRouter.post('/',auth, async (req, res, next) => {
 
     try {
         const findAlbum = await Album.findById(req.body.album)
@@ -57,7 +58,9 @@ trackRouter.post('/', async (req, res, next) => {
         }
         next(error)
     }
-})
+});
+
+
 
 
 export default trackRouter;

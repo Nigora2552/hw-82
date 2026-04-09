@@ -1,10 +1,12 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi.ts";
 import type {ArtistMutation, IArtist} from "../../types";
+import {toast} from "react-toastify";
+import type {AppDispatch} from "../../app/store.ts";
 
 export const getArtists = createAsyncThunk<IArtist[], void>('artist/getArtists',
     async () => {
-        const response = await axiosApi.get<IArtist[]>('/artist');
+        const response = await axiosApi.get<IArtist[]>('/artists');
         return response.data || [];
     })
 export const createArtist = createAsyncThunk<void, ArtistMutation>('artist/createArtist',
@@ -21,4 +23,13 @@ export const createArtist = createAsyncThunk<void, ArtistMutation>('artist/creat
         })
 
         await axiosApi.post('/artist', formData)
-    })
+    });
+
+export const deleteArtist = createAsyncThunk<void, string, {dispatch: AppDispatch}>(
+    'artist/deleteArtist',
+    async (id,thunkAPI) => {
+        await axiosApi.delete<{message: string}>(`/artists/${id}`);
+        toast.success('Artist deleted successfully');
+        thunkAPI.dispatch(getArtists());
+    }
+)

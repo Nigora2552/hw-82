@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {getAllTracks} from "../../features/tracks/tracksThunk.ts";
 
+
 interface Props {
     title: string;
     image: string | null;
@@ -13,26 +14,26 @@ interface Props {
     _id: string;
 }
 
-const AlbumCard: React.FC<Props> = ({title,image,year,_id}) => {
-const dispatch = useAppDispatch();
+const AlbumCard: React.FC<Props> = ({title, image, year, _id}) => {
+    const dispatch = useAppDispatch();
 
 
     let cardImage = noPhoto;
 
-    if(image){
+    if (image) {
         cardImage = apiUrl + '/' + image;
     }
 
 
     return (
-    <>
-        <Box onClick={() =>  dispatch(getAllTracks(_id))}  component={NavLink} to={`/tracks?album=${_id}`}  style={{width: '200px', border: "1px solid black", padding: '10px'}}>
-            <img style={{width: '100%'}} src={cardImage} alt={title} />
-            <p>{title}</p>
-            <span>{year}</span>
-
-        </Box>
-    </>
+        <>
+            <Box onClick={() => dispatch(getAllTracks(_id))} component={NavLink} to={`/tracks?album=${_id}`}
+                 style={{width: '200px', border: "1px solid black", padding: '10px'}}>
+                <img style={{width: '100%'}} src={cardImage} alt={title}/>
+                <p>{title}</p>
+                <span>{year}</span>
+            </Box>
+        </>
     );
 };
 
