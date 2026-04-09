@@ -40,6 +40,17 @@ const run = async () => {
     alisa.generateAuthToken();
     await alisa.save();
 
+    const alex = new User(
+        {
+            username: 'alex',
+            password: '123',
+            role: 'user',
+            token: '',
+        });
+
+    alex.generateAuthToken();
+    await alex.save();
+
     const murat = await Artist.create(
         {
             name: 'Murat Nasyrov',
@@ -90,6 +101,13 @@ const run = async () => {
             isPublished: true,
 
         },
+        {
+            artist: murat!._id,
+            title: 'test Murat Album',
+            year: 1989,
+            image: null,
+            isPublished: false,
+        },
     );
 
     await Track.create(
@@ -134,6 +152,22 @@ const run = async () => {
 
         },
         {
+            album: anna!._id,
+            title: 'Anna track 1 no isPublished',
+            duration: "2:00",
+            trackNumber: 6,
+            isPublished: false,
+
+        },
+        {
+            album: anna!._id,
+            title: 'Anna track 2 no isPublished',
+            duration: "2:00",
+            trackNumber: 7,
+            isPublished: false,
+
+        },
+        {
             album: murat!._id,
             title: 'Murat track 1',
             duration: "2:00",
@@ -167,6 +201,14 @@ const run = async () => {
             duration: "2:03",
             trackNumber: 5,
             isPublished: true,
+
+        },
+        {
+            album: murat!._id,
+            title: 'Murat track 1 no Published',
+            duration: "2:03",
+            trackNumber: 6,
+            isPublished: false,
 
         },
     )

@@ -5,7 +5,6 @@ import {imagesUpload} from "../middleware/multer";
 import {IArtist} from "../types";
 import auth from "../middleware/auth";
 import permit from "../middleware/permit";
-import Track from "../models/Track";
 import trackRouter from "./tracks";
 
 

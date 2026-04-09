@@ -5,7 +5,6 @@ import {imagesUpload} from "../middleware/multer";
 import Artist from "../models/Artist";
 import auth from "../middleware/auth";
 import permit from "../middleware/permit";
-import trackRouter from "./tracks";
 
 
 const albumRouter = express.Router();
