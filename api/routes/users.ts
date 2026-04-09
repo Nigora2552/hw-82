@@ -2,8 +2,6 @@ import express from "express";
 import {Error} from "mongoose";
 import User from "../models/User";
 import auth, {RequestWithUser} from "../middleware/auth";
-import jwt from "jsonwebtoken";
-import config from "../config";
 
 const usersRouter = express.Router();
 

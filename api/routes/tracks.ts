@@ -47,6 +47,7 @@ trackRouter.post('/',auth, async (req, res, next) => {
             title: req.body.title,
             duration: req.body.duration || null,
             trackNumber: indexTrack,
+            isPublished: req.body.isPublished,
         })
             await newTrack.save();
             return res.send(newTrack);

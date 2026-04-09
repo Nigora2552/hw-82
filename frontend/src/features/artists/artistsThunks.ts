@@ -9,7 +9,7 @@ export const getArtists = createAsyncThunk<IArtist[], void>('artist/getArtists',
         const response = await axiosApi.get<IArtist[]>('/artists');
         return response.data || [];
     })
-export const createArtist = createAsyncThunk<void, ArtistMutation>('artist/createArtist',
+export const createArtist = createAsyncThunk<IArtist, ArtistMutation>('artist/createArtist',
     async (ArtistMutation) => {
         const formData = new FormData();
 
@@ -18,18 +18,19 @@ export const createArtist = createAsyncThunk<void, ArtistMutation>('artist/creat
             const value = ArtistMutation[key];
 
             if (value !== null) {
-                formData.append(key, value);
+                formData.append(key, String(value));
             }
         })
 
-        await axiosApi.post('/artist', formData)
+        const response = await axiosApi.post('/artist', formData)
+        return response.data || null;
     });
 
-export const deleteArtist = createAsyncThunk<void, string, {dispatch: AppDispatch}>(
+export const deleteArtist = createAsyncThunk<void, string, { dispatch: AppDispatch }>(
     'artist/deleteArtist',
-    async (id,thunkAPI) => {
-        await axiosApi.delete<{message: string}>(`/artists/${id}`);
+    async (id, thunkAPI) => {
+        await axiosApi.delete<{ message: string }>(`/artists/${id}`);
         toast.success('Artist deleted successfully');
-        thunkAPI.dispatch(getArtists());
+       await thunkAPI.dispatch(getArtists());
     }
 )

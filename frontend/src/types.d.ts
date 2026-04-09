@@ -36,12 +36,14 @@ export interface IArtist {
     name: string;
     image: string | null;
     information: string;
+    isPublished: boolean;
 }
 
 export interface ArtistMutation {
     name: string;
     image: File | null;
     information: string;
+    isPublished: boolean;
 }
 
 export interface IAlbums {
@@ -50,6 +52,14 @@ export interface IAlbums {
     title: string;
     year: number;
     image: string | null;
+    isPublished: boolean;
+}
+export interface AlbumMutation {
+    artist: IArtist;
+    title: string;
+    year: number;
+    image: string | null;
+    isPublished: boolean;
 }
 
 export interface ITracks {

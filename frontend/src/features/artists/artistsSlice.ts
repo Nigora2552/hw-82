@@ -33,8 +33,9 @@ export const artistsSlice = createSlice({
             state.loading = true
         });
 
-        builder.addCase(createArtist.fulfilled, (state) => {
+        builder.addCase(createArtist.fulfilled, (state,{payload: artist}) => {
             state.loading = false;
+            state.artists.push(artist)
         });
         builder.addCase(createArtist.rejected, (state) => {
             state.loading = false;

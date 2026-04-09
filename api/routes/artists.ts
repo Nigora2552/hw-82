@@ -25,6 +25,7 @@ artistRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next
             name: req.body.name,
             image: req.file ? 'images/' + req.file.filename : null,
             information: req.body.information || null,
+            isPublished: req.body.isPublished,
         });
 
         await newArtist.save();

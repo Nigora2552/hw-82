@@ -19,7 +19,7 @@ const AlbumSchema = new mongoose.Schema({
         default: null
     },
     isPublished: {
-        type: Boolean,
+        type:  Boolean,
         default: false,
     },
 });
