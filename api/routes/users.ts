@@ -58,7 +58,7 @@ usersRouter.post('/sessions', async (req, res, next) => {
         next(e)
     }
 });
-usersRouter.delete('/sessions', auth, async (req, res, next) => {
+usersRouter.delete('/sessions', auth, async (req, res) => {
         const {user} = req as RequestWithUser;
         user.token = '';
 

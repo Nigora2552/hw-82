@@ -5,6 +5,7 @@ import {imagesUpload} from "../middleware/multer";
 import Artist from "../models/Artist";
 import auth from "../middleware/auth";
 import permit from "../middleware/permit";
+import trackRouter from "./tracks";
 
 
 const albumRouter = express.Router();
@@ -76,6 +77,26 @@ albumRouter.delete('/:id', auth,permit('admin'), async( req, res, next) => {
     } catch (e) {
         next(e)
     }
-})
+});
+
+
+albumRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const isValid = mongoose.Types.ObjectId.isValid(id as string);
+        if (!id || !isValid) return res.status(400).send({error: 'Id must be provided in request params'})
+
+        const album = await Album.findById(id);
+        if (!album) return res.status(404).send('Album not found')
+
+        album.isPublished = !album.isPublished;
+        await album.save()
+        res.send({message: 'Album is published ', album})
+
+
+    } catch (e) {
+        next(e)
+    }
+});
 
 export default albumRouter;
