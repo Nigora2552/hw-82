@@ -2,15 +2,13 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi.ts";
 import type {ITracks, TrackMutation} from "../../types";
 
-export const getAllTracks = createAsyncThunk<ITracks[], string>('track/getAllTracks',
-    async (id) => {
-        try{
-            const response = await axiosApi.get<ITracks[]>(`/tracks?album=${id}`);
-            return response.data || null;
-        } catch (error){
-            console.log(error)
-            return [];
-        }
+export const getAllTracks = createAsyncThunk<ITracks[], string | null>(
+    'track/getAllTracks',
+    async (query) => {
+            let url = '/tracks';
+            if(query) url += '?album=' + query
+            const response = await axiosApi.get<ITracks[]>(url);
+            return response.data || [];
     });
 
 export const createTrack = createAsyncThunk<void, TrackMutation>(

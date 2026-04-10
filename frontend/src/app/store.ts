@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
     users: persistReducer(userPersistConfig, userReducer) ,
     artists: artistsReducer,
     albums: albumReducer,
-    tracks: trackReducer,
+    track: trackReducer,
     trackHistory: trackHistoryReducer,
 })
 
