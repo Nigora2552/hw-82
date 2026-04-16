@@ -102,7 +102,7 @@ const TrackForm = () => {
                         onChange={onInputChange}/>
                 </Grid>
             </Grid>
-            <Button type='submit'>Add album</Button>
+            <Button type='submit'>Add track</Button>
         </form>
     );
 };

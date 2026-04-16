@@ -8,6 +8,10 @@ import permit from "../middleware/permit";
 
 const trackRouter = express.Router();
 
+trackRouter.get('/', async(_req,res) => {
+    const tracks = await Track.find().sort({ trackNumber: -1 }).populate('album');
+    res.send(tracks);
+})
 
 trackRouter.get('/', async (req, res, next) => {
     try {

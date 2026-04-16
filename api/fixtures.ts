@@ -69,8 +69,7 @@ const run = async () => {
     });
 
 
-
-    await Album.create(
+    const [annaQuin,annaPhoenix, muratSomeBody, muratWakeMeUp] = await Album.create(
         {
             artist: anna._id,
             title: 'Царица',
@@ -95,14 +94,6 @@ const run = async () => {
         },
         {
             artist: murat!._id,
-            title: 'Разбуди меня',
-            year: 2002,
-            image: 'fixtures/MuratAlbum.jpeg',
-            isPublished: true,
-
-        },
-        {
-            artist: murat!._id,
             title: 'test Murat Album',
             year: 1989,
             image: null,
@@ -112,7 +103,7 @@ const run = async () => {
 
     await Track.create(
         {
-            album: anna!._id,
+            album: annaQuin!._id,
             title: 'Anna track 1',
             duration: "2:36",
             trackNumber: 1,
@@ -120,7 +111,7 @@ const run = async () => {
 
         },
         {
-            album: anna!._id,
+            album: annaQuin!._id,
             title: 'Anna track 2',
             duration: "2:00",
             trackNumber: 2,
@@ -128,7 +119,7 @@ const run = async () => {
 
         },
         {
-            album: anna!._id,
+            album: annaQuin!._id,
             title: 'Anna track 3',
             duration: "3:01",
             trackNumber: 3,
@@ -136,7 +127,7 @@ const run = async () => {
 
         },
         {
-            album: anna!._id,
+            album: annaPhoenix!._id,
             title: 'Anna track 4',
             duration: "3:27",
             trackNumber: 4,
@@ -144,7 +135,7 @@ const run = async () => {
 
         },
         {
-            album: anna!._id,
+            album: annaPhoenix!._id,
             title: 'Anna track 5',
             duration: "1:50",
             trackNumber: 5,
@@ -152,51 +143,51 @@ const run = async () => {
 
         },
         {
-            album: anna!._id,
-            title: 'Anna track 1 no isPublished',
+            album: annaPhoenix!._id,
+            title: 'Anna track 14',
             duration: "2:00",
             trackNumber: 6,
             isPublished: false,
 
         },
         {
-            album: anna!._id,
-            title: 'Anna track 2 no isPublished',
+            album: annaPhoenix!._id,
+            title: 'Anna track 23',
             duration: "2:00",
             trackNumber: 7,
             isPublished: false,
 
         },
         {
-            album: murat!._id,
+            album: muratSomeBody!._id,
             title: 'Murat track 1',
             duration: "2:00",
             trackNumber: 1,
             isPublished: true,
 
         }, {
-            album: murat!._id,
+            album: muratSomeBody!._id,
             title: 'Murat track 2',
             duration: "2:05",
             trackNumber: 2,
             isPublished: true,
 
         }, {
-            album: murat!._id,
+            album: muratSomeBody!._id,
             title: 'Murat track 3',
             duration: "2:45",
             trackNumber: 3,
             isPublished: true,
 
         }, {
-            album: murat!._id,
+            album: muratWakeMeUp!._id,
             title: 'Murat track 4',
             duration: "1:53",
             trackNumber: 4,
             isPublished: true,
 
         }, {
-            album: murat!._id,
+            album: muratWakeMeUp!._id,
             title: 'Murat track 5',
             duration: "2:03",
             trackNumber: 5,
@@ -204,8 +195,8 @@ const run = async () => {
 
         },
         {
-            album: murat!._id,
-            title: 'Murat track 1 no Published',
+            album: muratWakeMeUp!._id,
+            title: 'Murat track 18',
             duration: "2:03",
             trackNumber: 6,
             isPublished: false,

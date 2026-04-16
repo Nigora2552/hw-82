@@ -1,6 +1,6 @@
 import type {IAlbums} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
-import {createAlbum, deleteAlbum, getAllAlbums} from "./albumsThunk.ts";
+import {createAlbum, deleteAlbum, getAlbumsByQuery, getAllAlbums} from "./albumsThunk.ts";
 
 interface AlbumsState {
     albums: IAlbums[];
@@ -25,6 +25,17 @@ export const albumSlice = createSlice({
             state.albums = album;
         });
         builder.addCase(getAllAlbums.rejected, (state) => {
+            state.loading = false;
+        });
+
+        builder.addCase(getAlbumsByQuery.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(getAlbumsByQuery.fulfilled, (state, {payload: album}) => {
+            state.loading = false;
+            state.albums = album;
+        });
+        builder.addCase(getAlbumsByQuery.rejected, (state) => {
             state.loading = false;
         });
 

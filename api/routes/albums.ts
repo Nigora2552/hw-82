@@ -8,6 +8,10 @@ import permit from "../middleware/permit";
 
 
 const albumRouter = express.Router();
+albumRouter.get('/', async (req, res) => {
+    const albums = await Album.find().populate("artist");
+    res.send(albums);
+})
 
 albumRouter.get('/', async (req, res, next) => {
 
@@ -41,7 +45,7 @@ albumRouter.get('/:id', async (req, res, next) => {
 
 })
 
-albumRouter.post('/',auth,  imagesUpload.single('image'), async (req, res, next) => {
+albumRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
 
     const fineArtist = await Artist.findById(req.body.artist);
     if (!fineArtist) return res.status(404).send('Artist not found')
@@ -65,12 +69,12 @@ albumRouter.post('/',auth,  imagesUpload.single('image'), async (req, res, next)
     }
 });
 
-albumRouter.delete('/:id', auth,permit('admin'), async( req, res, next) => {
+albumRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
     const id = req.params.id;
     const isValid = mongoose.Types.ObjectId.isValid(id as string);
-    if(!id || !isValid) return res.status(400).send({error: 'Id must be provided in request params'})
+    if (!id || !isValid) return res.status(400).send({error: 'Id must be provided in request params'})
 
-    try{
+    try {
         await Album.findByIdAndDelete(id);
         res.send({message: 'Artist deleted successfully!'})
     } catch (e) {

@@ -2,10 +2,25 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi.ts";
 import type {AlbumMutation, IAlbums} from "../../types";
 
-export const getAllAlbums = createAsyncThunk<IAlbums[], string>('album/getAllAlbums',
-    async (id) => {
+
+export const getAllAlbums = createAsyncThunk<IAlbums[], void>('album/getAllAlbums',
+    async () => {
         try {
-            const response = await axiosApi.get<IAlbums[]>(`/albums?artist=${id}`);
+            const response = await axiosApi.get<IAlbums[]>('/albums');
+            return response.data || [];
+        } catch (error) {
+            console.log(error)
+            return [];
+        }
+    });
+
+
+export const getAlbumsByQuery = createAsyncThunk<IAlbums[], string>('album/getAlbumsByQuery',
+    async (query) => {
+        try {
+            let url = '/albums'
+            if(query) url += '?artist=' + query
+            const response = await axiosApi.get<IAlbums[]>(url);
             return response.data || [];
         } catch (error) {
             console.log(error)

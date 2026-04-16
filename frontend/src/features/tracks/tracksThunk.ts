@@ -2,8 +2,17 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi.ts";
 import type {ITracks, TrackMutation} from "../../types";
 
-export const getAllTracks = createAsyncThunk<ITracks[], string | null>(
+
+export const getAllTracks = createAsyncThunk<ITracks[],void>(
     'track/getAllTracks',
+    async () => {
+        const response = await axiosApi.get<ITracks[]>('/tracks');
+        return response.data || [];
+    });
+
+
+export const getAllTracksByQuery = createAsyncThunk<ITracks[], string | null>(
+    'track/getAllTracksByQuery',
     async (query) => {
             let url = '/tracks';
             if(query) url += '?album=' + query

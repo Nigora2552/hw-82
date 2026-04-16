@@ -2,8 +2,6 @@ import './App.css'
 import NavBar from "./components/UI/NavBar/NavBar.tsx";
 import {Route, Routes} from "react-router-dom";
 import Home from "./containers/Home/Home.tsx";
-import Albums from "./features/albums/components/Albums/Albums.tsx";
-import Tracks from "./components/Tracks/Tracks.tsx";
 import Register from "./features/users/Register.tsx";
 import Login from "./features/users/Login.tsx";
 import {ToastContainer} from "react-toastify";
@@ -42,8 +40,8 @@ const App = () => {
                         <TrackForm/>
                     </ProtectedRouter>
                 }/>
-                <Route path='/albums' element={(<Albums/>)}/>
-                <Route path='/tracks' element={(<Tracks/>)}/>
+                {/*<Route path='/albums' element={(<Albums/>)}/>*/}
+                {/*<Route path='/tracks' element={(<Tracks/>)}/>*/}
                 <Route path='/*' element={<h1>Page not found</h1>}/>
             </Routes>
         </>

@@ -6,6 +6,8 @@ import {Button, CircularProgress} from "@mui/material";
 import ArtistCard from "../../features/artists/components/ArtistCard/ArtistCard.tsx";
 import {NavLink} from "react-router-dom";
 import {selectUser} from "../../features/users/usersSelectore.ts";
+import Albums from "../../features/albums/components/Albums/Albums.tsx";
+import Tracks from "../../features/tracks/components/Tracks/Tracks.tsx";
 
 
 const Home = () => {
@@ -16,14 +18,16 @@ const Home = () => {
 
 
     useEffect(() => {
-        dispatch(getArtists())
+        dispatch(getArtists());
+
     }, []);
 
     return (
         < >
-            {user &&
-            <Button component={NavLink} to='/add_artist/new'>Add Artist</Button>
+            {user && user.role === 'admin' &&
+                <Button component={NavLink} to='/add_artist/new'>Add Artist</Button>
             }
+            <h1>Artists: </h1>
             <div style={{display: 'flex', alignItems: 'center', flexWrap: 'wrap'}}>
                 {loading && <CircularProgress/>}
                 {!loading && artists.length > 0 &&
@@ -34,6 +38,11 @@ const Home = () => {
                         ))
                 }
             </div>
+
+            <hr/>
+            <Albums/>
+            <hr/>
+            <Tracks/>
         </>
 
     );

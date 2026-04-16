@@ -1,6 +1,6 @@
 import type {ITracks} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
-import {createTrack, deleteTrack, getAllTracks} from "./tracksThunk.ts";
+import {createTrack, deleteTrack, getAllTracks, getAllTracksByQuery} from "./tracksThunk.ts";
 
 interface TrackState {
     tracks: ITracks[],
@@ -25,6 +25,17 @@ export const trackSlice = createSlice({
             state.tracks = action.payload;
         });
         builder.addCase(getAllTracks.rejected, (state) =>  {
+            state.loading = false;
+        });
+
+        builder.addCase(getAllTracksByQuery.pending, (state) =>  {
+            state.loading = true;
+        }) ;
+        builder.addCase(getAllTracksByQuery.fulfilled, (state, action) =>  {
+            state.loading = false;
+            state.tracks = action.payload;
+        });
+        builder.addCase(getAllTracksByQuery.rejected, (state) =>  {
             state.loading = false;
         });
 

@@ -52,7 +52,7 @@ const AlbumForm = () => {
                     ...form,
                     isPublished: true
                 }));
-            navigate('/albums')
+            navigate('/')
         }
         setForm(initialSate)
     }
