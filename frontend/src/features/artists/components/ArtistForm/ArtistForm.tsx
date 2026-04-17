@@ -8,10 +8,12 @@ import {
 import {useAppDispatch} from "../../../../app/hooks.ts";
 import {createArtist} from "../../artistsThunks.ts";
 import FileInput from "../../../../components/UI/FileInput/FileInput.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 const ArtistForm = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const [form, setForm] = useState<ArtistMutation>({
         name: '',
         image: null,
@@ -40,6 +42,7 @@ const ArtistForm = () => {
 
         if (form.name.trim().length > 0) {
             await dispatch(createArtist({...form, isPublished: true}));
+            navigate('/');
         }
         setForm({
             name: '',

@@ -3,6 +3,7 @@ import type {User} from "../../../types";
 import {useState} from "react";
 import {useAppDispatch} from "../../../app/hooks.ts";
 import {logout} from "../../../features/users/usersThunks.ts";
+import noPhoto from "../../../assets/noPhoto.jpeg";
 
 interface Props {
     user: User;
@@ -20,16 +21,20 @@ const UserMenu: React.FC<Props> = ({user}) => {
         setAnchorEl(null)
     };
 
-
-
     return (
         <>
             <Button
                 onClick={handleClick}
                 color='inherit'
             >
-                Hello, {user.username}
+                Hello, {user.displayName || user.username}
             </Button>
+
+            <img
+                src={user.avatar ? user.avatar  : noPhoto}
+                alt={user.displayName}
+                style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }}
+            />
             <Menu
                 anchorEl={anchorEl}
                 keepMounted

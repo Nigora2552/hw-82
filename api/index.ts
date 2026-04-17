@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express"
 import  mongoose from "mongoose";
 import artistRouter from "./routes/artists";
@@ -7,13 +10,12 @@ import usersRouter from "./routes/users";
 import trackHistoryRouter from "./routes/trackHistory";
 import cors from "cors";
 import config from "./config";
-import dotenv from "dotenv";
 import cookieParser from 'cookie-parser';
 
 const app = express();
 const port = 8000;
 
-dotenv.config();
+
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true,

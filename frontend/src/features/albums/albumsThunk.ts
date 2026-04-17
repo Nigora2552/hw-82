@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi.ts";
 import type {AlbumMutation, IAlbums} from "../../types";
+import type {AppDispatch} from "../../app/store.ts";
 
 
 export const getAllAlbums = createAsyncThunk<IAlbums[], void>('album/getAllAlbums',
@@ -50,8 +51,9 @@ export const createAlbum = createAsyncThunk<IAlbums, AlbumMutation>(
         return response.data || null;
     });
 
-export const deleteAlbum = createAsyncThunk<void, string>(
+export const deleteAlbum = createAsyncThunk<void, string,{dispatch: AppDispatch}>(
     'album/deleteAlbum',
-    async (id) => {
+    async (id, thunkAPI) => {
         await axiosApi.delete(`/albums/${id}`)
+        await thunkAPI.dispatch(getAllAlbums())
     })

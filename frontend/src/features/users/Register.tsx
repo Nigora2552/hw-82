@@ -5,7 +5,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {Link, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 import {selectRegisterError, selectRegisterLoading} from "./usersSelectore.ts";
-import {register} from "./usersThunks.ts";
+import {googleLogin, register} from "./usersThunks.ts";
+import {GoogleLogin} from "@react-oauth/google";
+import {toast} from "react-toastify";
+import FileInput from "../../components/UI/FileInput/FileInput.tsx";
 
 
 const Register = () => {
@@ -17,6 +20,8 @@ const Register = () => {
     const [form, setForm] = useState<RegisterMutation>({
         username: '',
         password: '',
+        displayName: '',
+        avatar: null,
     });
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +44,23 @@ const Register = () => {
         } catch {
             return undefined;
         }
-    }
+    };
+
+    const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, files} = e.target;
+
+        if (files) {
+            setForm(prevState => ({
+                ...prevState,
+                [name]: files[0]
+            }))
+        }
+    };
+
+    const googleRegisterHandler = async (credential: string) => {
+        await dispatch(googleLogin(credential)).unwrap();
+        navigation('/');
+    };
     return (
         <Container component="main" maxWidth="xs">
 
@@ -76,6 +97,21 @@ const Register = () => {
                         </Grid>
                         <Grid size={12}>
                             <TextField
+                                type='text'
+                                name="displayName"
+                                required
+                                fullWidth
+                                id="displayName"
+                                label="displayName"
+                                autoFocus
+                                value={form.displayName}
+                                onChange={onInputChange}
+                                error={Boolean(getFieldError('displayName'))}
+                                helperText={getFieldError('displayName')}
+                            />
+                        </Grid>
+                        <Grid size={12}>
+                            <TextField
                                 required
                                 fullWidth
                                 name="password"
@@ -89,6 +125,13 @@ const Register = () => {
                                 helperText={getFieldError('password')}
                             />
                         </Grid>
+                        <Grid size={12}>
+                          <FileInput
+                              label='avatar'
+                              name='avatar'
+                              onChange={fileInputChangeHandler}
+                          />
+                        </Grid>
                     </Grid>
                     <Button
                         type="submit"
@@ -99,6 +142,18 @@ const Register = () => {
                     >
                         Sign Up
                     </Button>
+                    <Box sx={{py: 2, width: '100%'}}>
+                        <GoogleLogin
+                            size='large'
+                            onSuccess={(credentialResponse) => {
+                                if(credentialResponse.credential) {
+                                    googleRegisterHandler(credentialResponse.credential)
+                                }
+                            }}
+                            onError={() => toast.error('Google login failed')}>
+
+                        </GoogleLogin>
+                    </Box>
                     <Grid container justifyContent="flex-end">
                         <Grid>
                             <Link to='/login'>

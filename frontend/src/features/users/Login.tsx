@@ -5,7 +5,9 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import {Link, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 import {selectLoginError, selectLoginLoading} from "./usersSelectore.ts";
-import {login} from "./usersThunks.ts";
+import {googleLogin, login} from "./usersThunks.ts";
+import {GoogleLogin} from "@react-oauth/google";
+import {toast} from "react-toastify";
 
 
 const Login = () => {
@@ -33,6 +35,11 @@ const Login = () => {
         }
     }
 
+    const googleLoginHandler = async (credential: string) => {
+        await dispatch(googleLogin(credential)).unwrap();
+        navigation('/');
+    };
+
     return (
         <Container component="main" maxWidth="xs">
 
@@ -50,7 +57,7 @@ const Login = () => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                {error && (<Alert severity={ 'error'} sx={{mt: 3, width: '100%'}}>
+                {error && (<Alert severity={'error'} sx={{mt: 3, width: '100%'}}>
                     {error.error}
                 </Alert>)}
                 <Box component="form" noValidate onSubmit={onSubmitHandler} sx={{mt: 3}}>
@@ -91,6 +98,18 @@ const Login = () => {
                     >
                         Sign in
                     </Button>
+                    <Box sx={{pt: 2, width: '100%'}}>
+                        <GoogleLogin
+                            size='large'
+                            onSuccess={(credentialResponse) => {
+                                if(credentialResponse.credential) {
+                                    googleLoginHandler(credentialResponse.credential)
+                                }
+                            }}
+                            onError={() => toast.error('Google login failed')}>
+
+                        </GoogleLogin>
+                    </Box>
                     <Grid container justifyContent="flex-end">
                         <Grid>
                             <Link to='/register'>

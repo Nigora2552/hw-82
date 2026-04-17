@@ -21,7 +21,7 @@ const NavBar = () => {
                                     sx={{flexGrow: 1, textDecoration: 'none', color: 'white'}}>
                             News
                         </Typography>
-                        <Grid>
+                        <Grid sx={{display: 'flex', alignItems: 'center'}}>
                             {user ? <UserMenu user={user}/> : <AnonymousMenu/>}
                         </Grid>
                     </Grid>

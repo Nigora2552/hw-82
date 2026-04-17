@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi.ts";
 import type {ITracks, TrackMutation} from "../../types";
+import type {AppDispatch} from "../../app/store.ts";
 
 
 export const getAllTracks = createAsyncThunk<ITracks[],void>(
@@ -31,9 +32,10 @@ export const createTrack = createAsyncThunk<void, TrackMutation>(
     }
 );
 
-export  const deleteTrack = createAsyncThunk<void, string>(
+export  const deleteTrack = createAsyncThunk<void, string,{dispatch: AppDispatch}>(
     'track/deleteTrack',
-    async (id) =>{
+    async (id, thunkAPI) =>{
         await axiosApi.delete(`/tracks/${id}`);
+        await  thunkAPI.dispatch(getAllTracks());
     }
 )

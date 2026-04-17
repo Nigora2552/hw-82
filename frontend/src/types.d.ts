@@ -2,6 +2,8 @@ export interface User {
     _id: string;
     username: string;
     role: string;
+    displayName?: string;
+    avatar?: string | null;
     token: string;
 }
 
@@ -24,6 +26,8 @@ export interface GlobalError {
 export interface RegisterMutation {
     username: string;
     password: string;
+    displayName: string;
+    avatar: File | null;
 }
 
 export interface LoginMutation {

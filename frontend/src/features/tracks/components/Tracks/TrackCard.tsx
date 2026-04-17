@@ -19,7 +19,7 @@ const TrackCard: React.FC<Props> = ({track}) => {
     const user = useAppSelector(selectUser);
 
 
-    const image = track.album.image
+    const image = track.album?.image
 
     let cardImage = noPhoto;
 
@@ -35,7 +35,7 @@ const TrackCard: React.FC<Props> = ({track}) => {
             display: 'flex',
             flexDirection: 'column'
         }}>
-            <img alt={track.album.title} src={cardImage ? cardImage : ''}/>
+            <img alt={track.title} src={cardImage}/>
             <p>{track.trackNumber}</p>
             <p>{track.title}</p>
             {user && user.role === 'admin' &&

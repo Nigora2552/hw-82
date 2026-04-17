@@ -10,30 +10,29 @@ export interface RequestWithUser extends Request {
 }
 
 const auth = async (expressReq: Request, res: Response, next: NextFunction) => {
-   try{
-       const req = expressReq as RequestWithUser;
+    try {
+        const req = expressReq as RequestWithUser;
 
-       const jwtToken = req.cookies.token;
-       if(!jwtToken) return res.status(401).send('No token present')
-
-
-       const decoded = jwt.verify(jwtToken, config.jwtSecret) as {_id: string};
-
-       const user = await User.findOne({_id: decoded, token: jwtToken});
-       if(!user) return res.status(401).send({error: "Invalid token"});
+        const jwtToken = req.cookies.accessToken;
+        if (!jwtToken) return res.status(401).send('No access token present')
 
 
-       req.user = user;
-       next();
-   }catch (e) {
-       if(e instanceof TokenExpiredError){
-           return res.status(401).send({error: 'Your token expired'});
-       } else {
-           res.status(401).send({error: 'Please authenticate'})
+        const decoded = jwt.verify(jwtToken, config.jwtSecret) as { _id: string };
 
-       }
-   }
+        const user = await User.findOne({_id: decoded});
+        if (!user) return res.status(401).send({error: "Invalid or expired access token"});
 
+
+        req.user = user;
+        next();
+    } catch (e) {
+        if (e instanceof TokenExpiredError) {
+            return res.status(401).send({error: 'Your token expired'});
+        } else {
+            res.status(401).send({error: 'Please authenticate.Invalid access token'})
+
+        }
+    }
 
 
 }
